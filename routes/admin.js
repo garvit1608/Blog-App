@@ -14,15 +14,26 @@ router.get('/blogs', (req, res) => {
   });
 });
 
-router.post('/blog/create', (req, res) => {
-  let blog = {};
-  blog.sname = req.body.short_name,
-  blog.name = req.body.name,
-  blog.sdesc = req.body.short_desc,
-  blog.content = req.body.content;
+/**
+ * Post Create Blog
+ */
 
-  Blog.create(blog, (err) => {
+router.post('/blog/create', (req, res) => {
+  Blog.create(req.body, (err) => {
     if(err) throw err;
+
+    res.json({ success: true });
+  });
+});
+
+/**
+ * Post Update Blog
+ */
+
+router.post('/blog/:id/update', (req, res) => {
+  Blog.findByIdAndUpdate(req.params.id, req.body, (err) => {
+    if(err) throw err;
+
     res.json({ success: true });
   });
 });
