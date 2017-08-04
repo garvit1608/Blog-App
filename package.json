@@ -6,13 +6,17 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^0.8.4",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "express-session": "^1.15.5",
     "jade": "~1.11.0",
     "mongoose": "^4.11.5",
     "morgan": "~1.8.1",
+    "passport": "^0.2.2",
+    "passport-local": "^1.0.0",
     "serve-favicon": "~2.4.2",
     "use-strict": "^1.0.1"
   }
