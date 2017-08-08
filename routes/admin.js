@@ -2,15 +2,36 @@ const app = require('express');
 const router = app.Router();
 const Blog = require('../models/blog');
 
+/**
+ * Admin Middleware
+ */
+
+router.use((req, res, next) => {
+  if(req.isAuthenticated()) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+});
+
+/**
+ * Render new Blog
+ */
+
+router.get('/blogs/new', (req, res) => {
+  res.render('blogs/new');
+});
 
 /**
  * return JSON all blogs
  */
 
 router.get('/blogs', (req, res) => {
+  // eval(pry.it)
+
   Blog.find((err, blogs) => {
     if(err) throw err;
-    res.json(blogs);
+    res.render('blog', {list: blogs});
   });
 });
 
@@ -18,7 +39,7 @@ router.get('/blogs', (req, res) => {
  * Post Create Blog
  */
 
-router.post('/blog/create', (req, res) => {
+router.post('/blogs/create', (req, res) => {
   Blog.create(req.body, (err) => {
     if(err) throw err;
 
@@ -30,12 +51,25 @@ router.post('/blog/create', (req, res) => {
  * Post Update Blog
  */
 
-router.post('/blog/:id/update', (req, res) => {
+router.post('/blogs/:id/update', (req, res) => {
   Blog.findByIdAndUpdate(req.params.id, req.body, (err) => {
     if(err) throw err;
 
     res.json({ success: true });
   });
 });
+
+/**
+ * Post Delete Blog
+ */
+
+router.post('/blogs/:id/delete', (req, res) => {
+  Blog.findByIdAndRemove(req.params.id, (err) => {
+    if(err) throw err;
+
+    res.redirect('/admin/blogs');
+  });
+});
+
 
 module.exports = router;
