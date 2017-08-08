@@ -1,4 +1,5 @@
 require('use-strict');
+GLOBAL.pry = require('pryjs');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -42,10 +43,12 @@ app.use(passport.session());
 
 // serialize user
 passport.serializeUser(function(user, done) {
+
     done(null, user.id);
 });
 // deserialize user
 passport.deserializeUser(function(id, done) {
+
     User.findById({ _id: id }, function(err, user) {
         done(err, user);
     });
@@ -82,11 +85,10 @@ passport.use(new LocalStrategy({
 ));
 
 app.post('/login', passport.authenticate('local', {
-    session: false,
     failureRedirect: '/login',
   }), function(req, res) {
     req.session.cookie.maxAge = 1000 * 60 * 3;
-    res.end();
+    res.redirect('/admin/blogs');
 });
 
 app.use('/', index);
