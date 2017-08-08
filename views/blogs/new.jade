@@ -1,0 +1,14 @@
+form(method="post" action="/admin/blogs/create")
+  div
+    label Short Name
+    input(type="text" name="short_name")
+  div
+    label Name
+    input(type="text" name="name")
+  div
+    label Short Description
+    textarea(name="short_desc")
+  div
+    label Content
+    textarea(name="content")
+  input(type="submit" value="publish")

@@ -1,0 +1,8 @@
+table(border="1")
+  for blog in list
+    tr
+      td #{blog.name}
+      td #{blog.short_desc}
+      td
+        form(method="post" action="/admin/blogs/#{blog._id}/delete")
+          input(type="submit" value="Delete")
