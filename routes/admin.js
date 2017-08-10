@@ -52,10 +52,11 @@ router.post('/blogs/create', (req, res) => {
  */
 
 router.post('/blogs/:id/update', (req, res) => {
+  console.log(req.body);
   Blog.findByIdAndUpdate(req.params.id, req.body, (err) => {
     if(err) throw err;
 
-    res.json({ success: true });
+    res.redirect('/admin/blogs');
   });
 });
 

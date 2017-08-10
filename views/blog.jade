@@ -1,8 +1,40 @@
-table(border="1")
-  for blog in list
-    tr
-      td #{blog.name}
-      td #{blog.short_desc}
-      td
-        form(method="post" action="/admin/blogs/#{blog._id}/delete")
-          input(type="submit" value="Delete")
+extends layout
+
+block content
+  div.row
+    h2 My Blogs
+  div.row
+    table(class="table table-hover")
+      thead
+        tr
+          th Blog Name
+          th Short Description
+      tbody
+        for blog in list
+          tr
+            td
+              a(data-toggle="modal" href="#blogEditModal" onclick="loadDescription('#{blog._id}', '#{blog.content}')") #{blog.name}
+            td #{blog.short_desc}
+            td
+              form(method="post" action="/admin/blogs/#{blog._id}/delete")
+                button(class="btn btn-danger") Delete
+  // Modal
+  div(class="modal fade" id="blogEditModal" role="dialog")
+    div(class="modal-dialog")
+      // Modal content
+      div(class="modal-content")
+        div(class="modal-header")
+          button(type="button" class="close" data-dismiss="modal") &times;
+          h4(class="modal-title") Modal Header
+        form(method="post" id="modal-form")
+          div(class="modal-body")
+            div.form-group
+              textarea(id="blog-content" name="content" class="form-control")
+          div(class="modal-footer")
+            button(class="btn btn-default") Update
+
+  script.
+    function loadDescription(id, content) {
+      $('#modal-form').attr('action', '/admin/blogs/' + id + '/update');
+      $('#blog-content').val(content);
+    }

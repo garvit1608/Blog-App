@@ -85,7 +85,7 @@ passport.use(new LocalStrategy({
 ));
 
 app.post('/login', passport.authenticate('local', {
-    failureRedirect: '/login',
+    failureRedirect: '/',
   }), function(req, res) {
     req.session.cookie.maxAge = 1000 * 60 * 3;
     res.redirect('/admin/blogs');
