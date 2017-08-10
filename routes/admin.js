@@ -44,7 +44,7 @@ router.post('/blogs/create', (req, res) => {
   Blog.create(req.body, (err) => {
     if(err) throw err;
 
-    res.json({ success: true });
+    res.redirect('/admin/blogs');
   });
 });
 

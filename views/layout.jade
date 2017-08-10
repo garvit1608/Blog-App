@@ -7,9 +7,12 @@ html
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    nav
+    nav.nav
+      h4(class='pull-left') Blog Application
       if login
-        span.pull-right
+        span(style='display: inline-block; margin-top: 12px; margin-left: 20px;')
+          a(href='/admin/blogs/new') New
+        span.pull-right(style='display: inline-block; margin: 10px 20px 0 20px;')
           a(href='/logout') Logout
     div.container
       block content
