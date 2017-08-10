@@ -91,6 +91,11 @@ app.post('/login', passport.authenticate('local', {
     res.redirect('/admin/blogs');
 });
 
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/admin', admin);

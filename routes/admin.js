@@ -8,6 +8,7 @@ const Blog = require('../models/blog');
 
 router.use((req, res, next) => {
   if(req.isAuthenticated()) {
+    res.locals.login = req.isAuthenticated();
     next();
   } else {
     res.redirect('/');
