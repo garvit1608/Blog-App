@@ -16,9 +16,10 @@ block content
             td
               a(data-toggle="modal" href="#blogEditModal" onclick="loadDescription('#{blog._id}', '#{blog.content}')") #{blog.name}
             td #{blog.short_desc}
-            td
-              form(method="post" action="/admin/blogs/#{blog._id}/delete")
-                button(class="btn btn-danger") Delete
+            if admin
+              td
+                form(method="post" action="/admin/blogs/#{blog._id}/delete")
+                  button(class="btn btn-danger") Delete
   // Modal
   div(class="modal fade" id="blogEditModal" role="dialog")
     div(class="modal-dialog")
@@ -31,11 +32,16 @@ block content
           div(class="modal-body")
             div.form-group
               textarea(id="blog-content" name="content" class="form-control")
-          div(class="modal-footer")
-            button(class="btn btn-default") Update
+          if admin
+            div(class="modal-footer")
+              button(class="btn btn-default") Update
 
   script.
     function loadDescription(id, content) {
       $('#modal-form').attr('action', '/admin/blogs/' + id + '/update');
       $('#blog-content').val(content);
+    }
+
+    if(! #{admin}) {
+      $('#blog-content').attr('readonly', 'true');
     }

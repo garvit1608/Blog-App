@@ -32,7 +32,7 @@ router.get('/blogs', (req, res) => {
 
   Blog.find((err, blogs) => {
     if(err) throw err;
-    res.render('blog', {list: blogs});
+    res.render('blog', { list: blogs, admin: true });
   });
 });
 
